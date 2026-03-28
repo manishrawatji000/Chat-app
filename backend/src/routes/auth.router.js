@@ -2,8 +2,6 @@ import express from 'express';
 
 
 const router = express.Router();
-
- const app = express();
    router.get('/signup', (req, res) => {
     res.send('Signup endpoint');
    });
