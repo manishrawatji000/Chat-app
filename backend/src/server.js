@@ -10,9 +10,10 @@
  app.use("/api/auth", authrouter);
  app.use("/api/message", messageRouter);
  if (process.env.NODE_ENV === 'production') {
-     app.use(express.static(path.join(__dirname, '../frontend/build')));
-    app.get('/:path(*)', (_, res) => {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+    app.use((req, res) => {
         res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
     });
- }
+}
  app.listen(PORT, () => console.log('Server running on port :' + PORT));
