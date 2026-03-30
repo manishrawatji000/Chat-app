@@ -3,10 +3,13 @@
  import authrouter from './routes/auth.router.js';
  import messageRouter from './routes/message.router.js';
  import path from 'path';
+import {connectDB} from './lib/db.js';
+import { connect } from 'http2';
  dotenv.config();
  const PORT = process.env.PORT || 3000;
  const __dirname = path.resolve();
  const app = express();
+ app.use(express.json());// to parse json data from request body
  app.use("/api/auth", authrouter);
  app.use("/api/message", messageRouter);
  if (process.env.NODE_ENV === 'production') {
@@ -16,4 +19,8 @@
         res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
     });
 }
- app.listen(PORT, () => console.log('Server running on port :' + PORT));
+ app.listen(PORT, () => {
+    console.log("Server is running on port:" + PORT);
+    connectDB();
+});
+
